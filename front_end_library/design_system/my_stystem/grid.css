@@ -1,0 +1,21 @@
+.my-design.grid-1-2 {
+    display: grid;
+    grid-template-columns: repeat(1fr , 2);
+}
+.my-design.grid-1-2 {
+    display: grid;
+    grid-template-columns: repeat(1fr , 2);
+}
+.my-design.grid-1-3 {
+    display: grid;
+    grid-template-columns: repeat(1fr , 3);
+}
+.my-design.grid-1-4 {
+    display: grid;
+    grid-template-columns: repeat(1fr , 4);
+}
+.my-design.grid-1-5 {
+    display: grid;
+    grid-template-columns: repeat(1fr , 5);
+}
+

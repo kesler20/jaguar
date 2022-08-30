@@ -1,0 +1,121 @@
+/*-------------------------------------- general ----------------------------------*/
+.my-design.margin-xxl {
+  margin: 40rem;
+}
+.my-design.margin-xl {
+  margin: 16rem;
+}
+
+.my-design.margin-l {
+  margin: 4rem;
+}
+
+.my-design.margin-m {
+  margin: 2rem;
+}
+
+.my-design.margin-s {
+  margin: 1rem;
+}
+
+.my-design.margin-xs {
+  margin: 0.1rem;
+}
+/*-------------------------------------- TOP ----------------------------------*/
+
+.my-design.margin-top-xxl {
+  margin-top: 40rem;
+}
+.my-design.margin-top-xl {
+  margin-top: 16rem;
+}
+
+.my-design.margin-top-l {
+  margin-top: 4rem;
+}
+
+.my-design.margin-top-m {
+  margin-top: 2rem;
+}
+
+.my-design.margin-top-s {
+  margin-top: 1rem;
+}
+
+.my-design.margin-top-xs {
+  margin-top: 0.1rem;
+}
+
+/*-------------------------------------- bottom ----------------------------------*/
+.my-design.margin-bottom-xxl {
+  margin-bottom: 40rem;
+}
+.my-design.margin-bottom-xl {
+  margin-bottom: 16rem;
+}
+
+.my-design.margin-bottom-l {
+  margin-bottom: 4rem;
+}
+
+.my-design.margin-bottom-m {
+  margin-bottom: 2rem;
+}
+
+.my-design.margin-bottom-s {
+  margin-bottom: 1rem;
+}
+
+.my-design.margin-bottom-xs {
+  margin-bottom: 0.1rem;
+}
+
+/*-------------------------------------- RIGHT ----------------------------------*/
+
+.my-design.margin-right-xxl {
+  margin-right: 40rem;
+}
+.my-design.margin-right-xl {
+  margin-right: 16rem;
+}
+
+.my-design.margin-right-l {
+  margin-right: 4rem;
+}
+
+.my-design.margin-right-m {
+  margin-right: 2rem;
+}
+
+.my-design.margin-right-s {
+  margin-right: 1rem;
+}
+
+.my-design.margin-right-xs {
+  margin-right: 0.1rem;
+}
+
+/*-------------------------------------- left ----------------------------------*/
+
+.my-design.margin-left-xxl {
+  margin-left: 40rem;
+}
+.my-design.margin-left-xl {
+  margin-left: 16rem;
+}
+
+.my-design.margin-left-l {
+  margin-left: 4rem;
+}
+
+.my-design.margin-left-m {
+  margin-left: 2rem;
+}
+
+.my-design.margin-left-s {
+  margin-left: 1rem;
+}
+
+.my-design.margin-left-xs {
+  margin-left: 0.1rem;
+}

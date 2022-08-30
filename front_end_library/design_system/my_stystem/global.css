@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.my-design.full-height {
+  height: 100vh;
+}
+
+.my-design.full-width {
+  width: 100%;
+}
+
+.my-design.full-display {
+  height: 100vh;
+  width: 100%;
+}

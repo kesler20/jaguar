@@ -1,0 +1,16 @@
+
+
+.btn__outer {
+  position: absolute;
+  transform: translate(0%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  background-color: rgb(76, 76, 187);
+  box-shadow: 2px 3px 14px rgb(76, 76, 187);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}

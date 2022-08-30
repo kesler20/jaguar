@@ -1,0 +1,121 @@
+/*-------------------------------------- general ----------------------------------*/
+.my-design.padding-xxl {
+  padding: 40rem;
+}
+.my-design.padding-xl {
+  padding: 16rem;
+}
+
+.my-design.padding-l {
+  padding: 4rem;
+}
+
+.my-design.padding-m {
+  padding: 2rem;
+}
+
+.my-design.padding-s {
+  padding: 1rem;
+}
+
+.my-design.padding-xs {
+  padding: 0.1rem;
+}
+/*-------------------------------------- TOP ----------------------------------*/
+
+.my-design.padding-top-xxl {
+  padding-top: 40rem;
+}
+.my-design.padding-top-xl {
+  padding-top: 16rem;
+}
+
+.my-design.padding-top-l {
+  padding-top: 4rem;
+}
+
+.my-design.padding-top-m {
+  padding-top: 2rem;
+}
+
+.my-design.padding-top-s {
+  padding-top: 1rem;
+}
+
+.my-design.padding-top-xs {
+  padding-top: 0.1rem;
+}
+
+/*-------------------------------------- bottom ----------------------------------*/
+.my-design.padding-bottom-xxl {
+  padding-bottom: 40rem;
+}
+.my-design.padding-bottom-xl {
+  padding-bottom: 16rem;
+}
+
+.my-design.padding-bottom-l {
+  padding-bottom: 4rem;
+}
+
+.my-design.padding-bottom-m {
+  padding-bottom: 2rem;
+}
+
+.my-design.padding-bottom-s {
+  padding-bottom: 1rem;
+}
+
+.my-design.padding-bottom-xs {
+  padding-bottom: 0.1rem;
+}
+
+/*-------------------------------------- RIGHT ----------------------------------*/
+
+.my-design.padding-right-xxl {
+  padding-right: 40rem;
+}
+.my-design.padding-right-xl {
+  padding-right: 16rem;
+}
+
+.my-design.padding-right-l {
+  padding-right: 4rem;
+}
+
+.my-design.padding-right-m {
+  padding-right: 2rem;
+}
+
+.my-design.padding-right-s {
+  padding-right: 1rem;
+}
+
+.my-design.padding-right-xs {
+  padding-right: 0.1rem;
+}
+
+/*-------------------------------------- left ----------------------------------*/
+
+.my-design.padding-left-xxl {
+  padding-left: 40rem;
+}
+.my-design.padding-left-xl {
+  padding-left: 16rem;
+}
+
+.my-design.padding-left-l {
+  padding-left: 4rem;
+}
+
+.my-design.padding-left-m {
+  padding-left: 2rem;
+}
+
+.my-design.padding-left-s {
+  padding-left: 1rem;
+}
+
+.my-design.padding-left-xs {
+  padding-left: 0.1rem;
+}
