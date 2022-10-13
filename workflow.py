@@ -234,6 +234,6 @@ if __name__ == "__main__":
             for file in sys.argv[2:]:
                 osi.replace_file(file)
     elif sys.argv[1] == "test":
-        test_and_push_to_github(os.getcwd())
+        test_and_push_to_github(os.getcwd(),sys.argv[2])
     else:
         push_to_github(os.getcwd())
