@@ -205,6 +205,7 @@ def test_and_push_to_github(target_directory, type):
 
 
 def push_to_github(target_directory):
+    print("------------ pushing untested code 😞")
     print(f"------------- cd into --> {target_directory} 🚕")
     os.chdir(target_directory)
     os.system("git pull")
@@ -251,6 +252,6 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "test":
         test_and_push_to_github(os.getcwd(),sys.argv[2])
-        
+
     else:
         push_to_github(os.getcwd())
