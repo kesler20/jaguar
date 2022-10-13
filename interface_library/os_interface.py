@@ -1,5 +1,6 @@
 import os
-from path import Path
+import shutil
+
 
 class File(object):
     '''Object Description'''
@@ -69,6 +70,34 @@ class OperatingSystemInterface(object):
         '''signature description'''
         os.chdir(os.getcwd())
 
+    def gcu(self) -> str:
+        '''Get the current user i.e. C:/Users/Uchek'''
+        return os.getcwd()[:os.getcwd().find(r"\protocol")]
+
+    def get_current_project(self, file) -> str:
+        '''file is __file__ Get current folder just before the name of the file'''
+        return os.path.dirname(file)
+
+    def replace_file(self, file, folder_source="jaguar"):
+        '''
+        The folder that you are currently working on will be used as destination file
+        The source folder will be searched in the protocol folder and is jaguar by default
+        '''
+        # remove the local version which will be replaced
+        try:
+            os.remove(os.path.join(self.directory, file))
+        except FileNotFoundError as err:
+            print(err)
+
+        print(r'''
+        copying {} 
+        ---> into 
+        {}
+        '''.format(os.path.join(self.directory[:self.directory.find(r"\Protocol")], "Protocol", folder_source, file), os.path.join(self.directory, file)))
+
+        shutil.copy(os.path.join(self.directory[:self.directory.find(
+            r"\Protocol")], "Protocol", folder_source, file), os.path.join(self.directory, file))
+
     def move_folder_resources(self, destination_path: str) -> None:
         '''the directory passed as a property will be used as a source path'''
         for resource in os.listdir(self.directory):
@@ -86,7 +115,5 @@ class OperatingSystemInterface(object):
                     content = f.read()
                     if content.find(word) != -1:
                         result.append(file)
-                        
+
         return result
-
-
