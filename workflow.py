@@ -140,6 +140,7 @@ class AmplifyApplication(object):
         os.system("amplify publish")
         os.system("------------ workflow completed successfully ✅")
 
+
 class ReactApplication(object):
 
     def __init__(self) -> None:
@@ -153,7 +154,8 @@ class ReactApplication(object):
     def add_mqtt_library(self):
         # go through the journal frontend library and automate all the set up steps
         pass
- 
+
+
 def push_to_heroku(backend_directory: str, commit_message: str):
     '''
     This script can be used to deploy the backend to heroku automatically
@@ -178,23 +180,41 @@ def push_to_heroku(backend_directory: str, commit_message: str):
     os.system(f"git commit -am {commit_message}")
     os.system("git push heroku master")
 
+
 def init_heroku_app():
     pass
 
-def push_to_github(target_directory):
+
+def test_and_push_to_github(target_directory, type):
     print(f"------------- cd into --> {target_directory} 🚕")
     os.chdir(target_directory)
-    print("------------ running tests using npm 🧪")
-    os.system("npm test")
+
+    if type == "js":
+        print("------------ running tests using npm 🧪")
+        os.system("npm test")
+
+    if type == "py":
+        print("------------ running tests using pytest 🐍🧪")
+        os.system("python -m pytest")
+
     print("------------ the tests have passed so we can push to github ✅")
     os.system("git pull")
     os.system("git add . ")
     os.system('git commit -m "make it better"')
     os.system("git push ")
-    print("------------ publishing the application to amplify ✅")
+
+
+def push_to_github(target_directory):
+    print(f"------------- cd into --> {target_directory} 🚕")
+    os.chdir(target_directory)
+    os.system("git pull")
+    os.system("git add . ")
+    os.system('git commit -m "make it better"')
+    os.system("git push ")
+
 
 if __name__ == "__main__":
-    if sys.argv[1] == "aws":     
+    if sys.argv[1] == "aws":
         amplify = AmplifyApplication()
         amplify.import_amplify_application()
         amplify.initialize_amplify_application(*sys.argv[2:])
@@ -206,12 +226,14 @@ if __name__ == "__main__":
         react.add_mqtt_library()
         react.initialise_env_file()
     elif sys.argv[1] == "heroku":
-        push_to_heroku(os.getcwd(),"make it better")
-    elif sys.argv[1] == "replace": 
-        if len(sys.argv) == 2:   
+        push_to_heroku(os.getcwd(), "make it better")
+    elif sys.argv[1] == "replace":
+        if len(sys.argv) == 2:
             osi.replace_file("workflow.py")
         else:
             for file in sys.argv[2:]:
                 osi.replace_file(file)
+    elif sys.argv[1] == "test":
+        test_and_push_to_github(os.getcwd())
     else:
         push_to_github(os.getcwd())
