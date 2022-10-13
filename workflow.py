@@ -214,26 +214,43 @@ def push_to_github(target_directory):
 
 
 if __name__ == "__main__":
+    amplify = AmplifyApplication()
+    react = ReactApplication()
+    
     if sys.argv[1] == "aws":
-        amplify = AmplifyApplication()
-        amplify.import_amplify_application()
-        amplify.initialize_amplify_application(*sys.argv[2:])
-        amplify.modify_amplify_application(*sys.argv[2:])
-        amplify.push_to_amplify()
-        amplify.sync_env_variable_to_aws_exports()
+        if sys.argv[2] == "import":
+            amplify.import_amplify_application()
+        elif sys.argv[2] == "init":
+            amplify.initialize_amplify_application(*sys.argv[2:])
+        elif sys.argv[2] == "add":
+            amplify.modify_amplify_application(*sys.argv[2:])
+        elif sys.argv[2] == "publish":
+            amplify.push_to_amplify()
+        elif sys.argv[2] == "synch":
+            amplify.sync_env_variable_to_aws_exports()
+        else:
+            print("run 'python workflow.py aws import to import an existing amplify application'")
+
     elif sys.argv[1] == "react":
-        react = ReactApplication()
-        react.add_mqtt_library()
-        react.initialise_env_file()
+        if sys.argv[2] == "mqtt":
+            react.add_mqtt_library()
+        elif sys.argv[2] == "env":
+            react.initialise_env_file()
+        else:
+            print("run 'python workflow.py mqtt env' to generate a standard env file")
+
     elif sys.argv[1] == "heroku":
         push_to_heroku(os.getcwd(), "make it better")
+
     elif sys.argv[1] == "replace":
         if len(sys.argv) == 2:
             osi.replace_file("workflow.py")
         else:
             for file in sys.argv[2:]:
                 osi.replace_file(file)
+
     elif sys.argv[1] == "test":
         test_and_push_to_github(os.getcwd(),sys.argv[2])
+        
     else:
         push_to_github(os.getcwd())
