@@ -3,7 +3,7 @@ import sys
 import os
 import time
 import json
-from interface_library.os_interface import OperatingSystemInterface
+from interfaces.os_interface import OperatingSystemInterface
 
 osi = OperatingSystemInterface()
 user_directory = osi.gcu()
