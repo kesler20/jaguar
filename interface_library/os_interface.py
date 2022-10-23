@@ -72,7 +72,8 @@ class OperatingSystemInterface(object):
 
     def gcu(self) -> str:
         '''Get the current user i.e. C:/Users/Uchek'''
-        return os.getcwd()[:os.getcwd().find(r"\protocol")]
+        return os.path.join(*os.path.dirname(
+    __file__).split(r"\ ".replace(" ", ""))[:3])
 
     def get_current_project(self, file) -> str:
         '''file is __file__ Get current folder just before the name of the file'''
