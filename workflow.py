@@ -10,6 +10,10 @@ user_directory = osi.gcu()
 
 argument_number = 3 # this will offset py 4 the args that you pass since arg[0] is workflow.py arg[1] is class and arg[2] is a function 
 
+def pp(print_message: str):
+    print(f"------------- {print_message}")
+    time.sleep(1)
+
 class AmplifyApplication(object):
 
     def __init__(self) -> None:
@@ -196,38 +200,37 @@ class GithubRepository(object):
         Returns:
         - None
         '''
-        print(args[argument_number + 2] != None or args[argument_number + 2],"================== ththtt\n")
         _type = args[argument_number]
         commit_message = args[argument_number + 1]
         target_directory = os.getcwd() if args[argument_number + 2] != None or args[argument_number + 2] != "" else args[argument_number + 2]
 
-        print(f"------------- cd into --> {target_directory} 🚕")
+        pp(f"cd into --> {target_directory} 🚕")
         os.chdir(target_directory)
         os.system("git pull")
 
         if _type == "js":
-            print("------------ running tests using npm ☕Script 🧪")
+            pp("running tests using npm ☕Script 🧪")
             os.system("npm test")
 
         if _type == "py":
-            print("------------ running tests using pytest 🐍🧪")
+            pp("running tests using pytest 🐍🧪")
             os.system("python -m pytest")
         
         test_result = input("have all the tests passed? (y/n):")
         if test_result == "y":
-            print("------------ the tests have passed so we can push to github ✅")
+            pp("the tests have passed so we can push to github ✅")
             os.system("git add . ")
             os.system(f'git commit -m "{self.style_commit_message(commit_message)}"')
             os.system("git push ")
         else:
-            print("--------workflow completed without pushing ❌")
+            pp("workflow completed without pushing ❌")
 
     def push_to_github(self) -> None:
         '''signature description'''
 
         target_directory = os.getcwd()
-        print("------------ pushing untested code 😞")
-        print(f"------------- cd into --> {target_directory} 🚕")
+        pp("pushing untested code 😞")
+        pp(f"cd into --> {target_directory} 🚕")
         os.chdir(target_directory)
         os.system("git pull")
         os.system("git add . ")
@@ -241,17 +244,24 @@ class GithubRepository(object):
         if commit_message.startswith("t "):
             message_prefix = "test: "
             message_suffix = "🧪"
+            commit_message.replace("t ","")
+
         elif commit_message.startswith("d "):
             message_prefix = "documentation: "
             message_suffix = "📰"
+            commit_message.replace("d ","")
+
         elif commit_message.startswith("c "):
             message_prefix = "code: "
             message_suffix = code_commit_message_emojis[randint(0,len(code_commit_message_emojis) - 1)]
+            commit_message.replace("c ","")
+
         else:
             message_prefix = ""
             message_suffix = ""
 
         return message_prefix + commit_message + message_suffix
+    
 
 
 if __name__ == "__main__":
