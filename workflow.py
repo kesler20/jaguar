@@ -1,4 +1,4 @@
-from mimetypes import init
+from random import randint
 import sys
 import os
 import time
@@ -8,6 +8,7 @@ from interfaces.os_interface import OperatingSystemInterface
 osi = OperatingSystemInterface()
 user_directory = osi.gcu()
 
+argument_number = 3 # this will offset py 4 the args that you pass since arg[0] is workflow.py arg[1] is class and arg[2] is a function 
 
 class AmplifyApplication(object):
 
@@ -140,7 +141,6 @@ class AmplifyApplication(object):
         os.system("amplify publish")
         os.system("------------ workflow completed successfully ✅")
 
-
 class ReactApplication(object):
 
     def __init__(self) -> None:
@@ -151,121 +151,114 @@ class ReactApplication(object):
             content = configs.read()
             env.write(content)
 
-    def add_mqtt_library(self):
-        # go through the journal frontend library and automate all the set up steps
+    def initialise_npm_process(self) -> None:
+        '''signature description'''
+        
+        target_directory = os.getcwd()
+        print(f"------------- cd into --> {target_directory} 🚕")
+        os.chdir(target_directory)
+        time.sleep(1)
+        print("------------- pull resent changes from github ↪️")
+        os.system("git pull")
+        time.sleep(1)
+        print("------------ making sure that the npm packages are installed ⚙️")
+        os.system("npm i")
+        time.sleep(1)
+        print("------------ starting the application")
+        os.system("npm start")
+        time.sleep(1)
+
+class GithubRepository(object):
+    '''This is a representation of your directory according to github'''
+
+    def __init__(self) -> None:
         pass
 
+    def test_and_push_to_github(self, *args) -> None:
+        '''test_and_push_to_github will:
+        1. cd into target_directory
+        2. git pull the latest changes from github
+        3. run the tests, depending on whether is a python or javascript repo:
+        - jest for javascript
+        - pytest for python
+        4. push the changes to github with the custom message
 
-def push_to_heroku(backend_directory: str, commit_message: str):
-    '''
-    This script can be used to deploy the backend to heroku automatically
+        you can call this method by running:
+        ```bash
+        python workflow.py "git" "test" "py" "t commit message for changing test code"
+        ```
+        ---
+        Params:
+        - _type - str : this can be py or js and it dictates what types of tests are run 
+        - target_directory - str : this is the directory which the os will cd into
 
-    from the documentation we need the following commands to push 
-    see the documentation here https://dashboard.heroku.com/apps/journal-back-end/deploy/heroku-git
-    -----
-    ```git
-    $ git add .
-    $ git commit -am "make it better"
-    $ git push heroku master
-    ```
-    '''
-    os.chdir(backend_directory)
-    os.system("python -m pytest")
-    os.system("prettier -w .")
-    os.system("git pull")
-    os.system("git add . ")
-    os.system('git commit -m "make it better"')
-    os.system("git push ")
-    os.system("git add .")
-    os.system(f"git commit -am {commit_message}")
-    os.system("git push heroku master")
+        ---
+        Returns:
+        - None
+        '''
+        print(args[argument_number + 2] != None or args[argument_number + 2],"================== ththtt\n")
+        _type = args[argument_number]
+        commit_message = args[argument_number + 1]
+        target_directory = os.getcwd() if args[argument_number + 2] != None or args[argument_number + 2] != "" else args[argument_number + 2]
 
+        print(f"------------- cd into --> {target_directory} 🚕")
+        os.chdir(target_directory)
+        os.system("git pull")
 
-def init_heroku_app():
-    pass
+        if _type == "js":
+            print("------------ running tests using npm ☕Script 🧪")
+            os.system("npm test")
 
+        if _type == "py":
+            print("------------ running tests using pytest 🐍🧪")
+            os.system("python -m pytest")
+        
+        test_result = input("have all the tests passed? (y/n):")
+        if test_result == "y":
+            print("------------ the tests have passed so we can push to github ✅")
+            os.system("git add . ")
+            os.system(f'git commit -m "{self.style_commit_message(commit_message)}"')
+            os.system("git push ")
+        else:
+            print("--------workflow completed without pushing ❌")
 
-def test_and_push_to_github(target_directory, type):
-    print(f"------------- cd into --> {target_directory} 🚕")
-    os.chdir(target_directory)
+    def push_to_github(self) -> None:
+        '''signature description'''
 
-    if type == "js":
-        print("------------ running tests using npm 🧪")
-        os.system("npm test")
+        target_directory = os.getcwd()
+        print("------------ pushing untested code 😞")
+        print(f"------------- cd into --> {target_directory} 🚕")
+        os.chdir(target_directory)
+        os.system("git pull")
+        os.system("git add . ")
+        os.system('git commit -m "make it better"')
+        os.system("git push ")
+    
+    # internal function
+    def style_commit_message(self, commit_message: str) -> str:
+         # this is to make commit messages more interesting
+        code_commit_message_emojis = ["😕","⭐","✊","🤝","👐"]
+        if commit_message.startswith("t "):
+            message_prefix = "test: "
+            message_suffix = "🧪"
+        elif commit_message.startswith("d "):
+            message_prefix = "documentation: "
+            message_suffix = "📰"
+        elif commit_message.startswith("c "):
+            message_prefix = "code: "
+            message_suffix = code_commit_message_emojis[randint(0,len(code_commit_message_emojis) - 1)]
+        else:
+            message_prefix = ""
+            message_suffix = ""
 
-    if type == "py":
-        print("------------ running tests using pytest 🐍🧪")
-        os.system("python -m pytest")
-
-    print("------------ the tests have passed so we can push to github ✅")
-    os.system("git pull")
-    os.system("git add . ")
-    os.system('git commit -m "make it better"')
-    os.system("git push ")
-
-
-def push_to_github(target_directory):
-    print("------------ pushing untested code 😞")
-    print(f"------------- cd into --> {target_directory} 🚕")
-    os.chdir(target_directory)
-    os.system("git pull")
-    os.system("git add . ")
-    os.system('git commit -m "make it better"')
-    os.system("git push ")
-
-def initialise_npm_process(target_directory):
-    print(f"------------- cd into --> {target_directory} 🚕")
-    os.chdir(target_directory)
-    time.sleep(1)
-    print("------------- pull resent changes from github ↪️")
-    os.system("git pull")
-    time.sleep(1)
-    print("------------ making sure that the npm packages are installed ⚙️")
-    os.system("npm i")
-    time.sleep(1)
-    print("------------ starting the application")
-    os.system("npm start")
-    time.sleep(1)
+        return message_prefix + commit_message + message_suffix
 
 
 if __name__ == "__main__":
     amplify = AmplifyApplication()
     react = ReactApplication()
-    
-    if sys.argv[1] == "aws":
-        if sys.argv[2] == "import":
-            amplify.import_amplify_application()
-        elif sys.argv[2] == "init":
-            amplify.initialize_amplify_application(*sys.argv[2:])
-        elif sys.argv[2] == "add":
-            amplify.modify_amplify_application(*sys.argv[2:])
-        elif sys.argv[2] == "publish":
-            amplify.push_to_amplify()
-        elif sys.argv[2] == "synch":
-            amplify.sync_env_variable_to_aws_exports()
-        else:
-            print("run 'python workflow.py aws import to import an existing amplify application'")
+    git = GithubRepository()
 
-    elif sys.argv[1] == "react":
-        if sys.argv[2] == "mqtt":
-            react.add_mqtt_library()
-        elif sys.argv[2] == "env":
-            react.initialise_env_file()
-        else:
-            print("run 'python workflow.py mqtt env' to generate a standard env file")
+    # def return_none() make the return none decorator
+    git.test_and_push_to_github(*sys.argv)
 
-    elif sys.argv[1] == "heroku":
-        push_to_heroku(os.getcwd(), "make it better")
-
-    elif sys.argv[1] == "replace":
-        if len(sys.argv) == 2:
-            osi.replace_file("workflow.py")
-        else:
-            for file in sys.argv[2:]:
-                osi.replace_file(file)
-    elif sys.argv[1] == "test":
-        test_and_push_to_github(os.getcwd(),sys.argv[2])
-    elif sys.argv[1] == "npm":
-        initialise_npm_process(os.getcwd())
-    else:
-        push_to_github(os.getcwd())
