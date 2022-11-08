@@ -206,6 +206,7 @@ class GithubRepository(object):
 
         pp(f"cd into --> {target_directory} 🚕")
         os.chdir(target_directory)
+        pp(f"pull recent changes from github 😼")
         os.system("git pull")
 
         if _type == "js":
