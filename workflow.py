@@ -245,17 +245,17 @@ class GithubRepository(object):
         if commit_message.startswith("t "):
             message_prefix = "test: "
             message_suffix = "🧪"
-            commit_message.replace("t ","")
+            commit_message = commit_message.replace("t ","")
 
         elif commit_message.startswith("d "):
             message_prefix = "documentation: "
             message_suffix = "📰"
-            commit_message.replace("d ","")
+            commit_message = commit_message.replace("d ","")
 
         elif commit_message.startswith("c "):
             message_prefix = "code: "
             message_suffix = code_commit_message_emojis[randint(0,len(code_commit_message_emojis) - 1)]
-            commit_message.replace("c ","")
+            commit_message = commit_message.replace("c ","")
 
         else:
             message_prefix = ""
