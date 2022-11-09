@@ -86,7 +86,7 @@ class WorkflowRepresentation(object):
         print(f"------------- {print_message}")
         time.sleep(1)
 
-    def describe(topic: str):
+    def describe(self, topic: str):
         if topic == "aws":
             print("=============== INIT ==============")
             print("to initialise a brand new application run 'aws init'")
@@ -113,6 +113,43 @@ class AmplifyApplication(object):
 
         self.initial_args = len(["workflow.py", "aws", "function_signature"])
         self.workflow_ui = WorkflowRepresentation()
+    
+    def update_amplify_application(self,*categoryIDs):
+        '''modify_amplify_application will;
+        1. remove each category selected through the category ids
+        2. add each category selected through the category ids
+        3. check the amplify status between each addition
+        4. push the changes to the amplify application
+        5. pull the changes to the local backend
+
+        ---
+        Params:
+        - categoryIDs : list or strings, this will be turned into a list of integers and used to access the desired
+        category from the categories list
+
+        ---
+        Returns: 
+        - None
+        '''
+        os.system(
+            "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
+        for categoryID in categoryIDs:
+            category = self.categories[int(categoryID)]
+            self.workflow_ui.pp(
+                f"removing the selected categories form amplify 🗑️:{category}")
+            os.system(f"amplify remove {category}")
+            self.workflow_ui.pp(
+                f"adding a new category to amplify ⭐ category:{category}")
+            os.system(f"amplify add {category}")
+            self.workflow_ui.pp("checking the amplify status 🔍")
+            os.system("amplify status")
+            self.workflow_ui.pp(
+                f"adding a new category to amplify ⭐ category:{category}")
+            self.workflow_ui.pp(f"pushing to amplify ✏️")
+            os.system("amplify push")
+            self.workflow_ui.pp(f"pull locally ⤵️")
+            os.system("amplify pull")
+
 
     def modify_amplify_application(self, *categoryIDs):
         '''modify_amplify_application will;
@@ -247,16 +284,12 @@ class AmplifyApplication(object):
         os.chdir(target_directory)
         self.workflow_ui.pp("running tests using npm 🧪")
         os.system("npm test")
-        time.sleep(1)
         self.workflow_ui.pp("formatting code using prettier ✨")
         os.system("prettier -w .")
-        time.sleep(1)
         self.workflow_ui.pp("the tests have passed so we can push to github ✅")
-        time.sleep(1)
         os.system("git pull")
         os.system("git add . ")
         os.system('git commit -m "make it better"')
-        time.sleep(1)
         os.system("git push ")
         self.workflow_ui.pp("publishing the application to amplify ✅")
         os.system("amplify publish")
@@ -278,17 +311,17 @@ class ReactApplication(object):
         target_directory = os.getcwd()
         self.workflow_ui.pp(f"cd into --> {target_directory} 🚕")
         os.chdir(target_directory)
-        time.sleep(1)
+        
+        self.workflow_ui.pp(f"clone react project -> {args[0]} ⤵️")
+        os.system(f"git clone https://github.com/kesler20/{args[0]}")
+
         self.workflow_ui.pp("pull resent changes from github ↪️")
         os.system("git pull")
-        time.sleep(1)
         self.workflow_ui.pp(
             " making sure that the npm packages are installed ⚙️")
         os.system("npm i")
-        time.sleep(1)
         self.workflow_ui.pp("starting the application")
         os.system("npm start")
-        time.sleep(1)
 
 class GithubRepository(object):
     '''This is a representation of your directory according to github'''
@@ -303,7 +336,8 @@ class GithubRepository(object):
         3. run the tests, depending on whether is a python or javascript repo:
         - jest for javascript
         - pytest for python
-        4. push the changes to github with the custom message
+        4. code formatting using prettier
+        5. push the changes to github with the custom message
 
         you can call this method by running:
         ```bash
@@ -344,7 +378,10 @@ class GithubRepository(object):
         if _type == "py":
             self.workflow_ui.pp("running tests using pytest 🐍🧪")
             os.system("python -m pytest")
-
+        
+        self.workflow_ui.pp("formatting code using prettier ✨")
+        os.system("prettier -w .")
+        
         test_result = input("have all the tests passed? (y/n):")
         if test_result == "y":
             self.workflow_ui.pp(
@@ -417,8 +454,6 @@ if __name__ == "__main__":
     if sys.argv[1] == "git":
         if sys.argv[2] == "t":
             git.test_and_push_to_github(*sys.argv[argument_number:])
-        elif sys.argv[2] == "p":
-            git.test_and_push_to_github(*sys.argv[argument_number:])
         else:
             git.push_to_github(*sys.argv[argument_number:])
 
@@ -427,6 +462,8 @@ if __name__ == "__main__":
             amplify.initialize_amplify_application(sys.argv[argument_number:])
         elif sys.argv[2] == "edit":
             amplify.modify_amplify_application(sys.argv[argument_number:])
+        elif sys.argv[2] == "u":
+            amplify.update_amplify_application(sys.argv[argument_number:])
         elif sys.argv[2] == "sync":
             amplify.sync_env_variable_to_aws_exports(sys.argv[argument_number:])
         elif sys.argv[2] == "publish":
@@ -439,9 +476,9 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "react":
         if sys.argv[2] == "init":
-            git.test_and_push_to_github(*sys.argv[argument_number:])
+            react.initialise_npm_process(*sys.argv[argument_number:])
         elif sys.argv[2] == "config":
-            git.test_and_push_to_github(*sys.argv[argument_number:])
+            react.initialise_env_file(*sys.argv[argument_number:])
         else:
             print(
                 'running python workflow.py "react" "config" will paste the .env file in the root dir')
@@ -456,6 +493,6 @@ if __name__ == "__main__":
             with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
                 op_sys.system("python workflow.py g")
     else:
-        git.push_to_github(sys.argv)
+        git.push_to_github(sys.argv[1:])
 
     
