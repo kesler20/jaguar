@@ -1,0 +1,14 @@
+python workflow.py p                 
+python workflow.py "d changed documentation"`   
+python workflow.py "push" 
+python workflow.py "sync" 
+python workflow.py "git" 
+python workflow.py "git" t "py" "t commit message for changing test code" 
+python workflow.py aws "init" 1
+python workflow.py aws "edit" 1 
+python workflow.py "aws" u 1 
+python workflow.py aws "sync" 1
+python workflow.py aws "publish"
+python workflow.py "aws" d 
+python workflow.py "react" "init" "project_name"
+python workflow.py "react" "config"

@@ -464,7 +464,11 @@ class GithubRepository(object):
             message_suffix = code_commit_message_emojis[randint(
                 0, len(code_commit_message_emojis) - 1)]
             commit_message = commit_message.replace("c ", " ")
-
+        
+        elif commit_message.startswith("TODO:"):
+            message_prefix = ""
+            message_suffix = "🔴🔴🔴"
+            
         else:
             message_prefix = ""
             message_suffix = ""
@@ -539,7 +543,9 @@ if __name__ == "__main__":
                 osi.copy_file_from_folder("workflow.py")
 
     elif sys.argv[1] == "-h":
-        print("")
+        with open("commands.txt", "r") as f:
+            for line in f.readlines():
+                print(line)
 
     elif sys.argv[1] == "copy":
         folders = []
