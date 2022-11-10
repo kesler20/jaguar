@@ -92,7 +92,7 @@ class OperatingSystemInterface(object):
         '''
 
         source = os.path.join(
-            r"C:\Users\CBE-User 05\protocol", source_folder, file)
+            r"C:\Users\Uchek\protocol", source_folder, file)
         destination = os.path.join(self.directory, file)
 
         print(r'''

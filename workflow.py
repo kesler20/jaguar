@@ -131,8 +131,10 @@ class AmplifyApplication(object):
         Returns: 
         - None
         '''
+        categoryIDs = categoryIDs[0]
         os.system(
             "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
+        os.system(r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
         for categoryID in categoryIDs:
             category = self.categories[int(categoryID)]
             self.workflow_ui.pp(
@@ -167,8 +169,10 @@ class AmplifyApplication(object):
         Returns: 
         - None
         '''
+        categoryIDs = categoryIDs[0]
         os.system(
             "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
+        os.system(r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
         for categoryID in categoryIDs:
             category = self.categories[int(categoryID)]
             self.workflow_ui.pp(
@@ -184,8 +188,10 @@ class AmplifyApplication(object):
             os.system("amplify pull")
 
     def initialize_amplify_application(self, *categoryIDs):
+        categoryIDs = categoryIDs[0]
         os.system(
             "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
+        os.system(r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
         self.workflow_ui.pp("initialize a new amplify application 👶")
         os.system("amplify init")
         for categoryID in categoryIDs:
@@ -286,14 +292,17 @@ class AmplifyApplication(object):
         os.system("npm test")
         self.workflow_ui.pp("formatting code using prettier ✨")
         os.system("prettier -w .")
-        self.workflow_ui.pp("the tests have passed so we can push to github ✅")
-        os.system("git pull")
-        os.system("git add . ")
-        os.system('git commit -m "make it better"')
-        os.system("git push ")
-        self.workflow_ui.pp("publishing the application to amplify ✅")
-        os.system("amplify publish")
-        os.system("workflow completed successfully ✅")
+        result = input("are you satisfied with the result of the tests? (y/n):")
+        if result == "y":
+            self.workflow_ui.pp("the tests have passed so we can push to github ✅")
+            os.system("git pull")
+            os.system("git add . ")
+            os.system('git commit -m "make it better"')
+            os.system("git push ")
+            self.workflow_ui.pp("publishing the application to amplify ✅")
+            os.system("amplify publish")
+        
+        self.workflow_ui.pp("workflow completed successfully ✅")
 
 class ReactApplication(object):
 
@@ -301,7 +310,7 @@ class ReactApplication(object):
         self.workflow_ui = WorkflowRepresentation()
 
     def initialise_env_file(self, *args):
-        with open(".env", "w") as env, open(os.path.join(osi.gcu(), "Protocol", "jaguar", "config.py", "r")) as configs:
+        with open(".env", "w") as env, open(os.path.join(osi.gcu(), "Protocol", "jaguar", "config.py"),"r") as configs:
             content = configs.read()
             env.write(content)
 
@@ -353,14 +362,15 @@ class GithubRepository(object):
         - None
         '''
         _type = "py"
-        commit_message = "c make it better"
+        commit_message = "c make it better (untested)"
         target_directory = os.getcwd()
         if len(args) == 0:
             pass
         elif len(args) == 1:
             _type = args[0]
         elif len(args) == 2:
-            commit_message = args[0]
+            _type = args[0]
+            commit_message = args[1]
         else:
             _type = args[0]
             commit_message = args[1]
@@ -395,44 +405,25 @@ class GithubRepository(object):
 
     def push_to_github(self, *args) -> None:
         '''signature description'''
-        _type = "py"
-        commit_message = "c make it better"
+        commit_message = "c make it better (untested)"
+        if len(args[0][0]) > 1:
+            commit_message = args[0][0]
         target_directory = os.getcwd()
-        if len(args) == 0:
-            pass
-        elif len(args) == 1:
-            _type = args[0]
-        elif len(args) == 2:
-            commit_message = args[0]
-        else:
-            _type = args[0]
-            commit_message = args[1]
-            target_directory = args[2]
 
         self.workflow_ui.pp("pushing untested code 😞")
         self.workflow_ui.pp(f"cd into --> {target_directory} 🚕")
         os.chdir(target_directory)
         os.system("git pull")
         os.system("git add . ")
-        os.system(f'git commit -m "{self.style_commit_message("c make it better (untested)")}"')
+        os.system(f'git commit -m "{self.style_commit_message(commit_message)}"')
         os.system("git push ")
     
     def push_new_repo_to_github(self, *args) -> None:
         '''signature description'''
-        _type = "py"
-        commit_message = "c make it better"
+        args = args[0]
         target_directory = os.getcwd()
-        if len(args) == 0:
-            pass
-        elif len(args) == 1:
-            _type = args[0]
-        elif len(args) == 2:
-            commit_message = args[0]
-        elif len(args) == 3:
-            _type = args[0]
-            commit_message = args[1]
-            target_directory = args[2]
-        else:
+
+        if len(args) == 1:
             self.push_new_branch_to_github(target_directory)
         
         self.workflow_ui.pp("making a new folder 📁")
@@ -448,7 +439,7 @@ class GithubRepository(object):
     def push_new_branch_to_github(self, target_directory):
         os.chdir(target_directory)
         self.workflow_ui.pp("making a new branch 🌳")
-        # os.system("git -b checkout new-feature")
+        os.system("git -b checkout new-feature")
         os.system("git add . ")
         os.system(f'git commit -m "{self.style_commit_message("c add new feature")}"')
         self.workflow_ui.pp("publishing the new branch to github ⌚")
@@ -531,6 +522,22 @@ if __name__ == "__main__":
         for dir in os.listdir(r"C:\Users\Uchek\protocol"):
             with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
                 op_sys.system("python workflow.py g")
+    elif sys.argv[1] == "install":
+        workflow_ui.pp("INSTALLING JAGUAR <😼⏬>")
+        # now you can push all of the changes to github within the protocol folder as follows
+        for dir in os.listdir(r"C:\Users\Uchek\protocol"):
+            if dir == "jaguar":
+                pass
+            else:
+                with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
+                    # simulate that you are in the sofia silent folder
+                    op_sys.system("mkdir interfaces")
+                    op_sys.system("del os_interface.py")
+                osi = OperatingSystemInterface(
+                    os.path.join(r"C:\Users\Uchek\protocol", dir))
+                osi.copy_file_from_folder(r"interfaces\os_interface.py")
+                osi.copy_file_from_folder("workflow.py")
+
     else:
         git.push_to_github(sys.argv[1:])
 
