@@ -44,7 +44,7 @@ class FileSynchronizer(object):
                 folders.append(folder)
         most_deeply_nested_folder = os.path.join(r"C:\Users\Uchek\protocol", dir,**folders)
         if not os.path.isdir(most_deeply_nested_folder):
-            os.mkdir(most_deeply_nested_folder)
+            os.system(f"mkdir {most_deeply_nested_folder}")
             print(most_deeply_nested_folder,os.path.isdir(most_deeply_nested_folder))
  
     def sort_args(self,*args):
@@ -414,8 +414,45 @@ class GithubRepository(object):
         os.chdir(target_directory)
         os.system("git pull")
         os.system("git add . ")
-        os.system('git commit -m "make it better"')
+        os.system(f'git commit -m "{self.style_commit_message("c make it better (untested)")}"')
         os.system("git push ")
+    
+    def push_new_repo_to_github(self, *args) -> None:
+        '''signature description'''
+        _type = "py"
+        commit_message = "c make it better"
+        target_directory = os.getcwd()
+        if len(args) == 0:
+            pass
+        elif len(args) == 1:
+            _type = args[0]
+        elif len(args) == 2:
+            commit_message = args[0]
+        elif len(args) == 3:
+            _type = args[0]
+            commit_message = args[1]
+            target_directory = args[2]
+        else:
+            self.push_new_branch_to_github(target_directory)
+        
+        self.workflow_ui.pp("making a new folder 📁")
+        os.system(f"mkdir {target_directory}")
+        self.workflow_ui.pp("initializing a new github repository ➡️")
+        os.chdir(target_directory)
+        os.system("git init")
+        os.system("git add . ")
+        os.system(f'git commit -m "{self.style_commit_message("c first commit")}"')
+        self.workflow_ui.pp("now you can publish the branch from VS Code")
+        os.system(f"start code {target_directory}")
+    
+    def push_new_branch_to_github(self, target_directory):
+        os.chdir(target_directory)
+        self.workflow_ui.pp("making a new branch 🌳")
+        # os.system("git -b checkout new-feature")
+        os.system("git add . ")
+        os.system(f'git commit -m "{self.style_commit_message("c add new feature")}"')
+        self.workflow_ui.pp("publishing the new branch to github ⌚")
+        os.system(f"git push --set-upstream origin new-feature")
 
     # internal function
     def style_commit_message(self, commit_message: str) -> str:
@@ -454,6 +491,8 @@ if __name__ == "__main__":
     if sys.argv[1] == "git":
         if sys.argv[2] == "t":
             git.test_and_push_to_github(*sys.argv[argument_number:])
+        elif sys.argv[2] == "init":
+            git.push_new_repo_to_github(sys.argv[argument_number:])
         else:
             git.push_to_github(*sys.argv[argument_number:])
 

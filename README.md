@@ -56,7 +56,7 @@ the following table summarizes various commands
 | `python workflow.py p ` | push untested code to github |
 | `python workflow.py "push" | this will run "python workflow.py g" on all the directories in the protocol folder | |
 | `python workflow.py "sync"` | this command will syncronize files from jaguar | standard command `python workflow.py "f interfaces\os_interface.py" "protocol_backend"` anything starting with "f " is considered a file and if the folders preceeding it do not exist this will be created in the repositories given (args withoput the leading "f ")| 
-| `python workflow.py "git"` | push code to github from a target dir | `p g "target_directory"` |
+| `python workflow.py "git"` | push code to github from a target dir | `p g "target_directory"` to push a new github repo ``python workflow.py "git" "init"`` |
 | `python workflow.py "git" t "py" "t commit message for changing test code"` | runs python tests and pushes to github after asking for permission | py/js for what tests to run - "t "/"c "/"d " for test, code, and document commit messages respectively |
 | `python workflow.py aws "init" 1` | initialise an amplify application with notifications category | 1,2,3,4, -> 11 run `python workflow.py "aws" d` to check category ids |
 | `python workflow.py aws "edit" 1` | add categories to an existing amplify app | you could also run `python workflow.py "aws" u 1` to remove and add categories for updates |
