@@ -522,6 +522,7 @@ if __name__ == "__main__":
         for dir in os.listdir(r"C:\Users\Uchek\protocol"):
             with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
                 op_sys.system("python workflow.py g")
+
     elif sys.argv[1] == "install":
         workflow_ui.pp("INSTALLING JAGUAR <😼⏬>")
         # now you can push all of the changes to github within the protocol folder as follows
@@ -532,11 +533,30 @@ if __name__ == "__main__":
                 with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
                     # simulate that you are in the sofia silent folder
                     op_sys.system("mkdir interfaces")
-                    op_sys.system("del os_interface.py")
                 osi = OperatingSystemInterface(
                     os.path.join(r"C:\Users\Uchek\protocol", dir))
                 osi.copy_file_from_folder(r"interfaces\os_interface.py")
                 osi.copy_file_from_folder("workflow.py")
+
+    elif sys.argv[1] == "-h":
+        print("")
+
+    elif sys.argv[1] == "copy":
+        folders = []
+        files = []
+        for arg in sys.argv[1:]:
+            if arg.startswith("f "):
+                files.append(arg)
+            else:
+                folders.append(arg)
+        for dir in folders:
+            if dir == "jaguar":
+                pass
+            else:
+                for file in files:
+                    osi = OperatingSystemInterface(
+                        os.path.join(r"C:\Users\Uchek\protocol", dir))
+                    osi.copy_file_from_folder(file)
 
     else:
         git.push_to_github(sys.argv[1:])

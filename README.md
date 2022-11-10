@@ -50,19 +50,27 @@ this will use the current working directory
 
 > If you do not enter the arguments to the function, the argument that will be passed is None by default
 
+to start using the `workflow.py` use
+
+```bash
+python workflow.py "install"
+```
+
+this will copy the current jaguar `os_interface.py` file and the `workflow.py` file in all the repositories in the root protocol folder.
+
 the following table summarizes various commands
 | command | Description | Options |
 | --- | --- | --- |
-| `python workflow.py p ` | push untested code to github |
-| `python workflow.py "push" | this will run "python workflow.py g" on all the directories in the protocol folder | |
-| `python workflow.py "sync"` | this command will syncronize files from jaguar | standard command `python workflow.py "f interfaces\os_interface.py" "protocol_backend"` anything starting with "f " is considered a file and if the folders preceeding it do not exist this will be created in the repositories given (args withoput the leading "f ")| 
-| `python workflow.py "git"` | push code to github from a target dir | `p g "target_directory"` to push a new github repo ``python workflow.py "git" "init"`` |
+| `python workflow.py p ` | push untested code to github with a default message of code: make it better | None |
+| `python workflow.py "d changed documentation"` | push code using a custom message | use `"c code change message"/"d document change message"/"t test change message"` |  
+| `python workflow.py "push"` | this will run "python workflow.py g" on all the directories in the protocol folder | None |
+| `python workflow.py "sync"` | this command will syncronize files from jaguar | standard command `python workflow.py "f interfaces\os_interface.py" "protocol_backend"` anything starting with "f " is considered a file and if the folders preceeding it do not exist this will be created in the repositories given (args withoput the leading "f ")|
+| `python workflow.py "git"` | push code to github from a target dir | `p g "target_directory"` to push a new github repo `python workflow.py "git" "init"` to push a new branch `python workflow.py "git" "init" "branch"` |
 | `python workflow.py "git" t "py" "t commit message for changing test code"` | runs python tests and pushes to github after asking for permission | py/js for what tests to run - "t "/"c "/"d " for test, code, and document commit messages respectively |
 | `python workflow.py aws "init" 1` | initialise an amplify application with notifications category | 1,2,3,4, -> 11 run `python workflow.py "aws" d` to check category ids |
 | `python workflow.py aws "edit" 1` | add categories to an existing amplify app | you could also run `python workflow.py "aws" u 1` to remove and add categories for updates |
-| `python workflow.py aws "sync" 1` | synchronize .env file with the aws-exports file | |
-| `python workflow.py aws "publish"` | run jest tests, format code, push to github, publish to amplify | |
-| `python workflow.py "aws" d` | describe the categories and best practices ||
+| `python workflow.py aws "sync" 1` | synchronize .env file with the aws-exports file | None |
+| `python workflow.py aws "publish"` | run jest tests, format code, push to github, publish to amplify | None |
+| `python workflow.py "aws" d` | describe the categories and best practices | None |
 | `python workflow.py "react" "init"` | clone a react project, pull the latest changes, run npm i, run npm start | `python workflow.py "react" "init" "project_name"` |
-| `python workflow.py "react" "config"` | create a .env file in the root dir | |
-
+| `python workflow.py "react" "config"` | create a .env file in the root dir | None |
