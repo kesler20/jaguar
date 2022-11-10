@@ -1,14 +1,27 @@
-python workflow.py p                 
+=================== GLOBAL CLASS ======================
+python workflow.py "install" -> this will set the os_interface and the workflow.py file from jaguar in the rest of the folders in the protocol
+python workflow.py p -> to push to github with the message "code : make it better (untested) (emoji)"                 
 python workflow.py "d changed documentation"`   
-python workflow.py "push" 
-python workflow.py "sync" 
-python workflow.py "git" 
-python workflow.py "git" t "py" "t commit message for changing test code" 
-python workflow.py aws "init" 1
-python workflow.py aws "edit" 1 
-python workflow.py "aws" u 1 
-python workflow.py aws "sync" 1
-python workflow.py aws "publish"
-python workflow.py "aws" d 
-python workflow.py "react" "init" "project_name"
-python workflow.py "react" "config"
+python workflow.py "push" -> this will push to github all the repositories within the protocol folder
+python workflow.py "sync" -> this will add os_interface and workflow .py within all the folders in the protocol 
+python workflow.py "copy" "f filename" "folder1" "folder2" -> to copy the file filename from jaguar to folder1 and 2
+for example
+python workflow.py "copy" "f Context\speaker.py" "sofia" "sofia_silent" -> to copy the speaker.py from jaguar to sofia_silent and sofia
+
+=================== GIT CLASS ======================
+python workflow.py "git" "init" -> this is to initialise a new repo on github
+python workflow.py "git" "init" "branch" ->  this is to insitalise a new branch oin github
+python workflow.py "git" t "py" "t commit message for changing test code" -> this will run the tests and push the code to github
+
+=================== AWS CLASS ======================
+python workflow.py "aws" d ->  this will describe the amplify application
+python workflow.py "aws" "init" 1 -> this will initialize an amplify application with the api category
+python workflow.py "aws" "edit" 1 ->  this will edit (add) an amplify application with the api category 
+python workflow.py "aws" u 1 ->  this will update the amplify application (remove and add ) the category
+python workflow.py "aws" "sync" 1 ->  this will sync the .env file with aws-exports
+python workflow.py "aws" "publish" -> this will publish the amplify application after running tests
+
+=================== REACT CLASS ======================
+pyhton workflow.py "react" d -> will send the descriptions of the react functions
+python workflow.py "react" "init" "project_name" -> this will clone the project_name, npm i and run it using npm start 
+python workflow.py "react" "config" ->  this will generate the default .env file in the local react application

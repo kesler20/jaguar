@@ -550,11 +550,12 @@ if __name__ == "__main__":
     elif sys.argv[1] == "copy":
         folders = []
         files = []
-        for arg in sys.argv[1:]:
+        for arg in sys.argv[2:]:
             if arg.startswith("f "):
                 files.append(arg)
             else:
                 folders.append(arg)
+        files = [file.replace("f ","") for file in files]
         for dir in folders:
             if dir == "jaguar":
                 pass
@@ -562,7 +563,7 @@ if __name__ == "__main__":
                 for file in files:
                     osi = OperatingSystemInterface(
                         os.path.join(r"C:\Users\Uchek\protocol", dir))
-                    osi.copy_file_from_folder(file)
+                    osi.copy_file_from_folder(r"{}".format(file))
 
     else:
         git.push_to_github(sys.argv[1:])
