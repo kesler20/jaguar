@@ -8,7 +8,7 @@ import os
 import datetime
 
 logging.basicConfig(
-    filename=r'C:\Users\Uchek\Protocol\Sofia\logs_src\main_logs.log',
+    filename=r'C:\Users\CBE-User 05\protocol\Sofia\logs_src\main_logs.log',
     level=logging.DEBUG,
     format='%(asctime)s:%(levelname)s:%(message)s)'
 )
@@ -130,7 +130,7 @@ class DatabaseContexManager(object):
 
 def add_workout_to_database(filename=None):
     if filename is None:
-        filename = r'C:\Users\Uchek\Protocol\Sofia\Database\Files\training.csv'
+        filename = r'C:\Users\CBE-User 05\protocol\Sofia\Database\Files\training.csv'
 
     df = pd.read_csv(filename)
 

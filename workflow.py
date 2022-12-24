@@ -9,45 +9,48 @@ osi = OperatingSystemInterface()
 user_directory = osi.gcu()
 
 # this will offset py 4 the args that you pass since arg[0] is workflow.py arg[1] is class and arg[2] is a function
-argument_number = len(["workflow.py","class","function"])
+argument_number = len(["workflow.py", "class", "function"])
 
 
 class FileSynchronizer(object):
 
     def __init__(self) -> None:
-        self.all_directories = os.listdir(r"C:\Users\Uchek\protocol")
-        self.default_files_to_copy = [r"interfaces\os_interface.py", "workflow.py"]
+        self.all_directories = os.listdir(r"C:\Users\CBE-User 05\protocol")
+        self.default_files_to_copy = [
+            r"interfaces\os_interface.py", "workflow.py"]
 
     def synchronize_files_from_jaguar(self, *args):
         '''
         to separate between files and folders put a 'f filename.extension' in front of your files
         '''
-        directories_to_copy_to, files_to_copy = self.sort_args(args)  
-        
+        directories_to_copy_to, files_to_copy = self.sort_args(args)
+
         # now you can push all of the changes to github within the protocol folder as follows
         for dir in directories_to_copy_to:
             if dir == "jaguar":
                 pass
             else:
-                with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
-                    self.create_folders_where_needed(dir,files_to_copy)
+                with OperatingSystemInterface(os.path.join(r"C:\Users\CBE-User 05\protocol", dir)) as op_sys:
+                    self.create_folders_where_needed(dir, files_to_copy)
 
                 osi = OperatingSystemInterface(
-                    os.path.join(r"C:\Users\Uchek\protocol", dir))
+                    os.path.join(r"C:\Users\CBE-User 05\protocol", dir))
                 for file in files_to_copy:
                     osi.copy_file_from_folder(file)
-    
-    def create_folders_where_needed(self,dir,files_to_copy:list[str]):
+
+    def create_folders_where_needed(self, dir, files_to_copy: list[str]):
         folders = []
         for file in files_to_copy:
-            for folder in file.split(r"\ ".replace(" ",""))[:-1]:
+            for folder in file.split(r"\ ".replace(" ", ""))[:-1]:
                 folders.append(folder)
-        most_deeply_nested_folder = os.path.join(r"C:\Users\Uchek\protocol", dir,**folders)
+        most_deeply_nested_folder = os.path.join(
+            r"C:\Users\CBE-User 05\protocol", dir, **folders)
         if not os.path.isdir(most_deeply_nested_folder):
             os.system(f"mkdir {most_deeply_nested_folder}")
-            print(most_deeply_nested_folder,os.path.isdir(most_deeply_nested_folder))
- 
-    def sort_args(self,*args):
+            print(most_deeply_nested_folder,
+                  os.path.isdir(most_deeply_nested_folder))
+
+    def sort_args(self, *args):
         if len(args) == 0:
             directories_to_copy_to = self.all_directories
             files_to_copy = self.default_files_to_copy
@@ -59,23 +62,24 @@ class FileSynchronizer(object):
                     files_to_copy.append(arg)
                 else:
                     directories_to_copy_to.append(arg)
-        return directories_to_copy_to, files_to_copy   
+        return directories_to_copy_to, files_to_copy
 
-    def search_for_dir(dir,dirs: list[str]):
+    def search_for_dir(dir, dirs: list[str]):
         # 'we want to get this kind of behavior to traverse the file system
-        # if os.path.isdir(os.path.join(r"C:\Users\Uchek\protocol", dir, dirs[0])):
-        #   if os.path.isdir(os.path.join(r"C:\Users\Uchek\protocol", dir, dirs[0],dirs[1]))
-        
+        # if os.path.isdir(os.path.join(r"C:\Users\CBE-User 05\protocol", dir, dirs[0])):
+        #   if os.path.isdir(os.path.join(r"C:\Users\CBE-User 05\protocol", dir, dirs[0],dirs[1]))
+
         # this can be emulated by appending the dirs that exists in the list of the arguments and doing so until
         # we do not find a dir'
-        
+
         i = 0
         folders = [dirs[i]]
         while i < len(dirs) - 1:
-            if os.path.isdir(os.path.join(r"C:\Users\Uchek\protocol", dir,*folders)):
+            if os.path.isdir(os.path.join(r"C:\Users\CBE-User 05\protocol", dir, *folders)):
                 i += 1
                 folders.append(dirs[i])
-        return folders             
+        return folders
+
 
 class WorkflowRepresentation(object):
 
@@ -105,6 +109,7 @@ class WorkflowRepresentation(object):
             print(
                 "the latter is used to remove existing categories and to replace them with new ones")
 
+
 class AmplifyApplication(object):
 
     def __init__(self) -> None:
@@ -113,8 +118,8 @@ class AmplifyApplication(object):
 
         self.initial_args = len(["workflow.py", "aws", "function_signature"])
         self.workflow_ui = WorkflowRepresentation()
-    
-    def update_amplify_application(self,*categoryIDs):
+
+    def update_amplify_application(self, *categoryIDs):
         '''modify_amplify_application will;
         1. remove each category selected through the category ids
         2. add each category selected through the category ids
@@ -134,7 +139,8 @@ class AmplifyApplication(object):
         categoryIDs = categoryIDs[0]
         os.system(
             "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
-        os.system(r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
+        os.system(
+            r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
         for categoryID in categoryIDs:
             category = self.categories[int(categoryID)]
             self.workflow_ui.pp(
@@ -151,7 +157,6 @@ class AmplifyApplication(object):
             os.system("amplify push")
             self.workflow_ui.pp(f"pull locally ⤵️")
             os.system("amplify pull")
-
 
     def modify_amplify_application(self, *categoryIDs):
         '''modify_amplify_application will;
@@ -172,7 +177,8 @@ class AmplifyApplication(object):
         categoryIDs = categoryIDs[0]
         os.system(
             "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
-        os.system(r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
+        os.system(
+            r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
         for categoryID in categoryIDs:
             category = self.categories[int(categoryID)]
             self.workflow_ui.pp(
@@ -191,7 +197,8 @@ class AmplifyApplication(object):
         categoryIDs = categoryIDs[0]
         os.system(
             "start https://docs.google.com/spreadsheets/d/1bVORUU7gE_fYZW1FjpHu0Y-peRuyXPBO-o7_NsMurnI/edit#gid=1067183673")
-        os.system(r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
+        os.system(
+            r'start excel "{}\onedrive\documents\amplify-55X8f_accessKeys"'.format(osi.gcu()))
         self.workflow_ui.pp("initialize a new amplify application 👶")
         os.system("amplify init")
         for categoryID in categoryIDs:
@@ -274,7 +281,7 @@ class AmplifyApplication(object):
                 write_to_env_file.write(f'{line}\n')
             os.remove("aws-exports.json")
 
-    def push_to_amplify(self,*args):
+    def push_to_amplify(self, *args):
         '''
         In order to publish to amplify make sure that you have initialised the correct application
         and that the repository is bering configure
@@ -292,17 +299,20 @@ class AmplifyApplication(object):
         os.system("npm test")
         self.workflow_ui.pp("formatting code using prettier ✨")
         os.system("prettier -w .")
-        result = input("are you satisfied with the result of the tests? (y/n):")
+        result = input(
+            "are you satisfied with the result of the tests? (y/n):")
         if result == "y":
-            self.workflow_ui.pp("the tests have passed so we can push to github ✅")
+            self.workflow_ui.pp(
+                "the tests have passed so we can push to github ✅")
             os.system("git pull")
             os.system("git add . ")
             os.system('git commit -m "make it better"')
             os.system("git push ")
             self.workflow_ui.pp("publishing the application to amplify ✅")
             os.system("amplify publish")
-        
+
         self.workflow_ui.pp("workflow completed successfully ✅")
+
 
 class ReactApplication(object):
 
@@ -310,7 +320,7 @@ class ReactApplication(object):
         self.workflow_ui = WorkflowRepresentation()
 
     def initialise_env_file(self, *args):
-        with open(".env", "w") as env, open(os.path.join(osi.gcu(), "Protocol", "jaguar", "config.py"),"r") as configs:
+        with open(".env", "w") as env, open(os.path.join(osi.gcu(), "Protocol", "jaguar", "config.py"), "r") as configs:
             content = configs.read()
             env.write(content)
 
@@ -320,7 +330,7 @@ class ReactApplication(object):
         target_directory = os.getcwd()
         self.workflow_ui.pp(f"cd into --> {target_directory} 🚕")
         os.chdir(target_directory)
-        
+
         self.workflow_ui.pp(f"clone react project -> {args[0]} ⤵️")
         os.system(f"git clone https://github.com/kesler20/{args[0]}")
 
@@ -331,6 +341,7 @@ class ReactApplication(object):
         os.system("npm i")
         self.workflow_ui.pp("starting the application")
         os.system("npm start")
+
 
 class GithubRepository(object):
     '''This is a representation of your directory according to github'''
@@ -390,10 +401,10 @@ class GithubRepository(object):
             os.system("python -m pytest src/tests")
             self.workflow_ui.pp("checking types 🐍📰")
             os.system("mypy src")
-        
+
         self.workflow_ui.pp("formatting code using prettier ✨")
         os.system("prettier -w .")
-        
+
         test_result = input("have all the tests passed? (y/n):")
         if test_result == "y":
             self.workflow_ui.pp(
@@ -417,9 +428,10 @@ class GithubRepository(object):
         os.chdir(target_directory)
         os.system("git pull")
         os.system("git add . ")
-        os.system(f'git commit -m "{self.style_commit_message(commit_message)}"')
+        os.system(
+            f'git commit -m "{self.style_commit_message(commit_message)}"')
         os.system("git push ")
-    
+
     def push_new_repo_to_github(self, *args) -> None:
         '''signature description'''
         args = args[0]
@@ -427,23 +439,25 @@ class GithubRepository(object):
 
         if len(args) == 1:
             self.push_new_branch_to_github(target_directory)
-        
+
         self.workflow_ui.pp("making a new folder 📁")
         os.system(f"mkdir {target_directory}")
         self.workflow_ui.pp("initializing a new github repository ➡️")
         os.chdir(target_directory)
         os.system("git init")
         os.system("git add . ")
-        os.system(f'git commit -m "{self.style_commit_message("c first commit")}"')
+        os.system(
+            f'git commit -m "{self.style_commit_message("c first commit")}"')
         self.workflow_ui.pp("now you can publish the branch from VS Code")
         os.system(f"start code {target_directory}")
-    
+
     def push_new_branch_to_github(self, target_directory):
         os.chdir(target_directory)
         self.workflow_ui.pp("making a new branch 🌳")
         os.system("git checkout -b new-feature")
         os.system("git add . ")
-        os.system(f'git commit -m "{self.style_commit_message("c add new feature")}"')
+        os.system(
+            f'git commit -m "{self.style_commit_message("c add new feature")}"')
         self.workflow_ui.pp("publishing the new branch to github ⌚")
         os.system(f"git push --set-upstream origin new-feature")
 
@@ -466,11 +480,11 @@ class GithubRepository(object):
             message_suffix = code_commit_message_emojis[randint(
                 0, len(code_commit_message_emojis) - 1)]
             commit_message = commit_message.replace("c ", " ")
-        
+
         elif commit_message.startswith("TODO:"):
             message_prefix = ""
             message_suffix = "🔴🔴🔴"
-            
+
         else:
             message_prefix = ""
             message_suffix = ""
@@ -501,7 +515,8 @@ if __name__ == "__main__":
         elif sys.argv[2] == "u":
             amplify.update_amplify_application(sys.argv[argument_number:])
         elif sys.argv[2] == "sync":
-            amplify.sync_env_variable_to_aws_exports(sys.argv[argument_number:])
+            amplify.sync_env_variable_to_aws_exports(
+                sys.argv[argument_number:])
         elif sys.argv[2] == "publish":
             amplify.push_to_amplify(sys.argv[argument_number:])
         else:
@@ -525,22 +540,22 @@ if __name__ == "__main__":
         synch.synchronize_files_from_jaguar(sys.argv[1:])
 
     elif sys.argv[1] == "push":
-        for dir in os.listdir(r"C:\Users\Uchek\protocol"):
-            with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
+        for dir in os.listdir(r"C:\Users\CBE-User 05\protocol"):
+            with OperatingSystemInterface(os.path.join(r"C:\Users\CBE-User 05\protocol", dir)) as op_sys:
                 op_sys.system("python workflow.py g")
 
     elif sys.argv[1] == "install":
         workflow_ui.pp("INSTALLING JAGUAR <😼⏬>")
         # now you can push all of the changes to github within the protocol folder as follows
-        for dir in os.listdir(r"C:\Users\Uchek\protocol"):
+        for dir in os.listdir(r"C:\Users\CBE-User 05\protocol"):
             if dir == "jaguar":
                 pass
             else:
-                with OperatingSystemInterface(os.path.join(r"C:\Users\Uchek\protocol", dir)) as op_sys:
+                with OperatingSystemInterface(os.path.join(r"C:\Users\CBE-User 05\protocol", dir)) as op_sys:
                     # simulate that you are in the sofia silent folder
                     op_sys.system("mkdir interfaces")
                 osi = OperatingSystemInterface(
-                    os.path.join(r"C:\Users\Uchek\protocol", dir))
+                    os.path.join(r"C:\Users\CBE-User 05\protocol", dir))
                 osi.copy_file_from_folder(r"interfaces\os_interface.py")
                 osi.copy_file_from_folder("workflow.py")
 
@@ -557,17 +572,15 @@ if __name__ == "__main__":
                 files.append(arg)
             else:
                 folders.append(arg)
-        files = [file.replace("f ","") for file in files]
+        files = [file.replace("f ", "") for file in files]
         for dir in folders:
             if dir == "jaguar":
                 pass
             else:
                 for file in files:
                     osi = OperatingSystemInterface(
-                        os.path.join(r"C:\Users\Uchek\protocol", dir))
+                        os.path.join(r"C:\Users\CBE-User 05\protocol", dir))
                     osi.copy_file_from_folder(r"{}".format(file))
 
     else:
         git.push_to_github(sys.argv[1:])
-
-    
