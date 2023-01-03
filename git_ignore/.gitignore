@@ -1,0 +1,20 @@
+/venv/
+/app/
+/aws/
+/csv/
+__pycache__
+fastapi.pem
+putty.ppk
+backend.zip
+tempfiles
+.vscode
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+# Python configuration files
+config.py
+# google api
+client_secret_1028475286088-bj03n932hpj20nhpmo2qp9ljdndhjueb.apps.googleusercontent.com.json
+token_gmail_v1.pickle
+token_tasks_v1.pickle

@@ -1,27 +1,54 @@
 =================== GLOBAL CLASS ======================
-python workflow.py "install" -> this will set the os_interface and the workflow.py file from jaguar in the rest of the folders in the protocol
-python workflow.py p -> to push to github with the message "code : make it better (untested) (emoji)"                 
-python workflow.py "d changed documentation"`   
-python workflow.py "push" -> this will push to github all the repositories within the protocol folder
-python workflow.py "sync" -> this will add os_interface and workflow .py within all the folders in the protocol 
-python workflow.py "copy" "f filename" "folder1" "folder2" -> to copy the file filename from jaguar to folder1 and 2
-for example
-python workflow.py "copy" "f Context\speaker.py" "sofia" "sofia_silent" -> to copy the speaker.py from jaguar to sofia_silent and sofia
+python _dev.py "install" -> this will set the os_interface and the _dev.py file from jaguar in the rest of the folders in the protocol
+python _dev.py p -> to push to github with the message "code : make it better (untested) (emoji)"                 
+python _dev.py "d changed documentation"   
+python _dev.py "push" -> this will push to github all the repositories within the protocol folder
+python _dev.py copy file protocol_database\exceldatabase.py -> to copy the exceldatabase.py file to the jaguar_backend
+python _dev.py copy file protocol_database\exceldatabase.py folder_name -> to copy the exceldatabase.py file to the given folder
+python _dev.py "delete" "name of the folder"
+python _dev.py "test" py/js 
+python _dev.py "test" py/js manual folder_name
+python _dev.py "-h"
+python _dev.py "create-app" py/js "name of application"
+python _dev.py "create-env" "name of environment"
 
 =================== GIT CLASS ======================
-python workflow.py "git" "init" -> this is to initialise a new repo on github
-python workflow.py "git" "init" "branch" ->  this is to insitalise a new branch oin github
-python workflow.py "git" t "py" "t commit message for changing test code" -> this will run the tests and push the code to github
+python _dev.py "git" "init" -> this is to initialise a new repo on github
+python _dev.py "git" "branch" ->  this is to insitalise a new branch oin github
+python _dev.py "git" t "py" "t commit message for changing test code" -> this will run the tests and push the code to github
+python _dev.py git merge -> this will merge the new-feature branch to master
+python _dev.py git gitignore -> this will generate a gitignore file locally
+
+=================== GITHUB CLASS ======================
+python _dev.py "github" "issue" create/read/close -> this is to interact with the github issues of the given repository
+python _dev.py "github" "describe" -> this is to add a description to the current github repository
+python _dev.py github repos number 10 -> get the first 10 repos in your github account
+python _dev.py github repos language python -> get the repositories with the given language as main lang
+python _dev.py github repos topic topic-name -> get a repository by topic
+python _dev.py github repos visibility -> get a repository on whether it is private or public 
+python _dev.py github view -> open the local repository
+python _dev.py github topic add/remove topic-name -> add topic-name or remove it 
+python _dev.py github visibility public -> change visibility from private to public and viceversa
+
 
 =================== AWS CLASS ======================
-python workflow.py "aws" d ->  this will describe the amplify application
-python workflow.py "aws" "init" 1 -> this will initialize an amplify application with the api category
-python workflow.py "aws" "edit" 1 ->  this will edit (add) an amplify application with the api category 
-python workflow.py "aws" u 1 ->  this will update the amplify application (remove and add ) the category
-python workflow.py "aws" "sync" 1 ->  this will sync the .env file with aws-exports
-python workflow.py "aws" "publish" -> this will publish the amplify application after running tests
+python _dev.py "aws" d ->  this will describe the amplify application
+python _dev.py "aws" "init" 1 -> this will initialize an amplify application with the api category
+python _dev.py "aws" "edit" 1 ->  this will edit (add) an amplify application with the api category 
+python _dev.py "aws" u 1 ->  this will update the amplify application (remove and add ) the category
+python _dev.py "aws" "sync" 1 ->  this will sync the .env file with aws-exports
+python _dev.py "aws" "publish" -> this will publish the amplify application after running tests
 
 =================== REACT CLASS ======================
-pyhton workflow.py "react" d -> will send the descriptions of the react functions
-python workflow.py "react" "init" "project_name" -> this will clone the project_name, npm i and run it using npm start 
-python workflow.py "react" "config" ->  this will generate the default .env file in the local react application
+python _dev.py "react" d -> will send the descriptions of the react functions
+python _dev.py "react" "init" "project_name" -> this will clone the project_name, npm i and run it using npm start 
+python _dev.py "react" "config" ->  this will generate the default .env file in the local react application
+
+=================== TYPESCRIPT CLASS ======================
+python _dev.py "react" d -> will send the descriptions of the react functions
+python _dev.py "react" "init" "project_name" -> this will clone the project_name, npm i and run it using npm start 
+python _dev.py "react" "config" ->  this will generate the default .env file in the local react application
+
+=================== README CLASS ======================
+python _dev.py typescript init -> initialise the typescript environment
+python _dev.py typescript convert -> convert all the local files from js to ts
